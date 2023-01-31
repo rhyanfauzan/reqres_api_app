@@ -6,9 +6,11 @@ import 'package:dio/dio.dart';
 import 'package:reqres_api_app/model/user_model.dart';
 import 'package:reqres_api_app/model/userdetail_model.dart';
 
+import '../model/createuser_mode.dart';
+
 class UserService {
   String baseUrl = "https://reqres.in/api/users/";
-  // User
+  // Get User
   @override
   Future<UserModel?> getUsers() async {
     Response response;
@@ -27,7 +29,7 @@ class UserService {
     }
   }
 
-  // Detail User
+  // Get Detail User
   @override
   Future<UserDetailModel?> getDetailUser(String idUser) async {
     Response response;
@@ -43,6 +45,23 @@ class UserService {
     } on DioError catch (e) {
       print("gagal fetch User");
       return UserDetailModel.fromJson(e.response?.data);
+    }
+  }
+
+  // Create User
+  @override
+  Future<CreateUserModel?> createUser(String name, String job) async {
+    Response response;
+    var dio = Dio();
+    dio.interceptors.add(
+        LogInterceptor(requestBody: true, responseBody: true, error: true));
+    try {
+      response = await dio.post(baseUrl, data: {'name': name, 'job': job});
+      print("berhasil create User");
+      return CreateUserModel.fromJson(response.data);
+    } on DioError catch (e) {
+      print("gagal create User");
+      return CreateUserModel.fromJson(e.response?.data);
     }
   }
 }

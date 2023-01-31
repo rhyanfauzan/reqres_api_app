@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:reqres_api_app/config/theme.dart';
 import 'package:reqres_api_app/ui/about_screen.dart';
 import 'package:reqres_api_app/ui/createuser_screen.dart';
 import 'package:reqres_api_app/ui/homescreen.dart';
@@ -19,7 +20,7 @@ class App extends StatelessWidget {
         HomeScreen(
           futureUser: futureUser,
         ),
-        const CreateUserScreen(),
+        CreateUserScreen(),
         const AboutScreen(),
       ];
     }
@@ -27,28 +28,36 @@ class App extends StatelessWidget {
     List<PersistentBottomNavBarItem> _navBarsItems() {
       return [
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.home_outlined),
+          icon: const Icon(Icons.home_filled),
           title: ("Home"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Colors.grey,
+          inactiveIcon: Icon(
+            Icons.home_outlined,
+            color: blue400Color,
+          ),
+          activeColorPrimary: blue400Color,
+          inactiveColorPrimary: greyColor,
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(
-            Icons.add,
-            color: Colors.white,
+          icon: Icon(
+            Icons.add_circle_rounded,
+            color: whiteColor,
           ),
-          inactiveIcon: const Icon(
+          inactiveIcon: Icon(
             Icons.add_circle_outline,
-            color: Colors.white,
+            color: whiteColor,
           ),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Colors.grey,
+          activeColorPrimary: blue400Color,
+          inactiveColorPrimary: greyColor,
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.info_outline_rounded),
+          icon: const Icon(Icons.info_rounded),
           title: ("About"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Colors.grey,
+          inactiveIcon: Icon(
+            Icons.info_outline_rounded,
+            color: blue400Color,
+          ),
+          activeColorPrimary: blue400Color,
+          inactiveColorPrimary: greyColor,
         ),
       ];
     }
@@ -62,14 +71,14 @@ class App extends StatelessWidget {
       items: _navBarsItems(),
       controller: controller,
       confineInSafeArea: true,
-      backgroundColor: Colors.white,
+      backgroundColor: whiteColor,
       handleAndroidBackButtonPress: true,
       resizeToAvoidBottomInset: true,
       stateManagement: true,
       hideNavigationBarWhenKeyboardShows: true,
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
+        colorBehindNavBar: whiteColor,
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
