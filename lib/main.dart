@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reqres_api_app/model/user_model.dart';
-import 'package:reqres_api_app/service/user_service.dart';
 import 'package:reqres_api_app/ui/app.dart';
 import 'package:reqres_api_app/ui/splash_screen.dart';
 
@@ -11,26 +9,8 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late Future<UserModel?> futureUser;
-  UserService userService = UserService();
-  bool showSplash = true;
-
-  @override
-  void initState() {
-    setState(() {
-      futureUser = userService.getUsers();
-    });
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +34,8 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Builder(builder: (context) {
         Future.delayed(const Duration(seconds: 2)).then((value) => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => App(
-                            futureUser: futureUser,
-                          )))
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => const App()))
             });
         return const SplashScreen();
       }),

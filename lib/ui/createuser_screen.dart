@@ -5,14 +5,16 @@ import 'package:reqres_api_app/model/createuser_mode.dart';
 import 'package:reqres_api_app/widgets/buttons.dart';
 
 import '../config/theme.dart';
+import '../model/user_model.dart';
 import '../service/user_service.dart';
 import '../widgets/custom_form_field.dart';
 
 class CreateUserScreen extends StatelessWidget {
-  CreateUserScreen({super.key});
+  CreateUserScreen({super.key, required this.futureUser});
 
-  final nameController = TextEditingController(text: 'Alex');
-  final jobController = TextEditingController(text: 'Freelance');
+  final Future<UserModel?> futureUser;
+  final nameController = TextEditingController();
+  final jobController = TextEditingController();
   UserService userService = UserService();
 
   final formKey = GlobalKey<FormState>();
@@ -45,7 +47,7 @@ class CreateUserScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'New User,\nName: ${user.name}\nJob: ${user.job}\nid: ${user.id}\ncreated_at: ${user.createdAt}',
+                            'New User (Response from API),\nName: ${user.name}\nJob: ${user.job}\nid: ${user.id}\ncreated_at: ${user.createdAt}',
                             style: greyTextStyle,
                           ),
                           const SizedBox(
