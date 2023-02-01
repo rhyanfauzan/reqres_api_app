@@ -15,41 +15,39 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('List Users'),
+      body: SafeArea(
+        child: FutureBuilder<UserModel?>(
+            future: futureUser,
+            builder: (context, snapshot) {
+              print(snapshot.data?.data?.length);
+              if (snapshot.hasData) {
+                print("hasData");
+                var users = snapshot.data?.data;
+                return ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    itemCount: users?.length,
+                    itemBuilder: (context, index) => InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailUserScreen(
+                                        idUser:
+                                            "${users?[index].id.toString()}")));
+                          },
+                          child: CardUser(
+                            firstName: users?[index].firstName,
+                            lastName: users?[index].lastName,
+                            email: users?[index].email,
+                            avatarUrl: users?[index].avatar,
+                          ),
+                        ));
+              } else {
+                print("Loading..");
+                return const ShimmerListLoading();
+              }
+            }),
       ),
-      body: FutureBuilder<UserModel?>(
-          future: futureUser,
-          builder: (context, snapshot) {
-            print(snapshot.data?.data?.length);
-            if (snapshot.hasData) {
-              print("hasData");
-              var users = snapshot.data?.data;
-              return ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  itemCount: users?.length,
-                  itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailUserScreen(
-                                      idUser:
-                                          "${users?[index].id.toString()}")));
-                        },
-                        child: CardUser(
-                          firstName: users?[index].firstName,
-                          lastName: users?[index].lastName,
-                          email: users?[index].email,
-                          avatarUrl: users?[index].avatar,
-                        ),
-                      ));
-            } else {
-              print("Loading..");
-              return const ShimmerListLoading();
-            }
-          }),
     );
   }
 }
-

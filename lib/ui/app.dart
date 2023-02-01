@@ -41,9 +41,7 @@ class _AppState extends State<App> {
           HomeScreen(
             futureUser: futureUser,
           ),
-          CreateUserScreen(
-            futureUser: futureUser,
-          ),
+          CreateUserScreen(),
           const AboutScreen(),
         ],
         onPageChanged: (index) {

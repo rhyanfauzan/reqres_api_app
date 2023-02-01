@@ -5,14 +5,12 @@ import 'package:reqres_api_app/model/createuser_mode.dart';
 import 'package:reqres_api_app/widgets/buttons.dart';
 
 import '../config/theme.dart';
-import '../model/user_model.dart';
 import '../service/user_service.dart';
 import '../widgets/custom_form_field.dart';
 
 class CreateUserScreen extends StatelessWidget {
-  CreateUserScreen({super.key, required this.futureUser});
+  CreateUserScreen({super.key});
 
-  final Future<UserModel?> futureUser;
   final nameController = TextEditingController();
   final jobController = TextEditingController();
   UserService userService = UserService();
